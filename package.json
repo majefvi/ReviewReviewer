@@ -16,9 +16,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server start": "node server/dist/server.js",
-    "server dev": "nodemon server/src/server.ts",
-    "server build": "tsc -p"
+    "serverstart": "node server/dist/server.js",
+    "serverdev": "nodemon server/src/server.ts",
+    "serverbuild": "tsc -p server"
   },
   "eslintConfig": {
     "extends": "react-app"

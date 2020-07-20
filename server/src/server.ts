@@ -1,9 +1,12 @@
-import express from 'express';
+import { Application, Request, Response, NextFunction } from "express";
+import express = require("express");
 
-const app = express();
+const SERVER_PORT = 5000;
 
-app.get('/', (req, res) => {
-  res.send('Howdy wurld.');
+const app: Application = express();
+
+app.get("/", (req: Request, res: Response) => {
+  res.send("Howdy wurld.");
 });
 
-app.listen(5000, () => console.log('Look out! The server be runnin'));
+app.listen(SERVER_PORT, () => console.log("Look out! The server be runnin"));
