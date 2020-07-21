@@ -1,18 +1,21 @@
 import React, { Component } from "react";
+import { Grid } from "@material-ui/core";
+import { Card } from "@material-ui/core";
+import { CardHeader } from "@material-ui/core";
+import { CardContent } from "@material-ui/core";
 
 class OriginalReview extends Component {
-  state = {};
   render() {
+    const { review } = this.props;
+
     return (
-      <React.Fragment>
-        <div className="card">
-          <div className="card-body">
-            <h5 className="card-title">Test</h5>
-            <h6 className="card-subtitle mb-2 text-muted">Test</h6>
-            <p className="card-text">Test</p>
-          </div>
-        </div>
-      </React.Fragment>
+      <Card style={{ position: "relative" }}>
+        <CardHeader
+          title={review.product}
+          subheader={review.author}
+        ></CardHeader>
+        <CardContent>{review.description}</CardContent>
+      </Card>
     );
   }
 }
