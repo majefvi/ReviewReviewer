@@ -17,13 +17,13 @@ class App extends Component {
 
   componentDidMount() {
     // this.handleLoadOriginalReview();
-    // this.callBackendAPI("getrandom")
-    //   .then((res) => console.log("hi"))
-    //   .then((res) => this.setState({ data: res.express }))
-    //   .catch((err) => console.log(err));
+    this.callBackendAPI("getrandom");
+    // .then((response) => response.json())
+    // .then((res) => this.setState({ data: res.express }))
+    // .catch((err) => console.log(err));
     //this.getLocalDummyData();
-    fetch("/getrandom");
-    console.log("hi");
+    // fetch("/getrandom").then((response) => console.log(response.json()));
+    // console.log("hi");
   }
 
   // TODO: Logic for getting original review
@@ -57,7 +57,15 @@ class App extends Component {
       throw Error(body.message);
     }
     console.log(body);
-    return body;
+
+    this.setState((prevState) => {
+      let review = { ...prevState.review };
+      review = body;
+      console.log(review.image);
+      return { review };
+    });
+
+    // return body;
   };
 
   getLocalDummyData = () => {

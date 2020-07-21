@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card } from "@material-ui/core";
+import { Card, CardMedia } from "@material-ui/core";
 import { CardHeader } from "@material-ui/core";
 import { CardContent } from "@material-ui/core";
 
@@ -10,10 +10,12 @@ class OriginalReview extends Component {
     return (
       <Card style={{ position: "relative" }}>
         <CardHeader
-          title={review.product}
-          subheader={review.author}
+          title={review.name}
+          subheader={review.manufacturer}
         ></CardHeader>
-        <CardContent>{review.description}</CardContent>
+        <img src={review.image} />
+        {/* <CardMedia image={review.image} /> */}
+        <CardContent>{review.review}</CardContent>
       </Card>
     );
   }

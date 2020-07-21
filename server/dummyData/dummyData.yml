@@ -5,22 +5,22 @@ reviews:
     nuts:
       - name: Jumbo Cashews
         manufacturer: Karma
-        image: ""
+        image: "https://picsum.photos/200/300"
         review:
           Tastey, but for some reason they're higher in fat than most candy of
           the same dimensions...
       - name: BBQ Almonds
         manufacturer: Blue Diamond
-        image: ""
+        image: "https://picsum.photos/200/300"
         review:
           These almonds suck. As in, the only good part about them is sucking
           off the bbq dust exterior
     soda:
       - name: Mountain Dew
         manufacturer: Coca-Cola
-        image: ""
+        image: "https://picsum.photos/200/300"
         review: Tastey, but pouring it into a glass reveals an unsettling color
       - name: Coke
         manufacturer: Coca-Cola
-        image: ""
+        image: "https://picsum.photos/200/300"
         review: Hate your teeth? Need to clean a car battery? Try this!
