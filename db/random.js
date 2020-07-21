@@ -1,17 +1,43 @@
-const DATABASE_NAME = 'mydatabase',
-    URL = `mongodb://localhost:27017/${amazonreviews}`
 
-module.exports = async function() {
-    const client = new MongoClient(URL, {useNewUrlParser: true})
-    var db = null
-    try {
-        // Note this breaks.
-        // await client.connect({useNewUrlParser: true})
-        await client.connect()
-        db = client.db(DATABASE_NAME)
-    } catch (err) {
-        console.log(err.stack)
-    }
+let done = true
 
-    return db
-}
+window.addEventListener('load', () => {
+
+
+
+
+    app.get("/personnel", (req, res) => {
+        collection.find().aggregate([{ $sample: { size: 1 } }])((error, result) => {
+            if(error) {
+                return response.status(500).send(error);
+            }
+            response.send(result);
+        });
+    });
+
+
+    
+
+  
+    
+
+   
+
+        
+    
+    })
+
+
+
+db.collection.count( function(err, count){
+    db.collection.distinct( "_id" , function( err, result) {
+        if (err)
+            res.send(err)
+        var randomId = result[Math.floor(Math.random() * (count-1))]
+        db.collection.findOne( { _id: randomId } , function( err, result) {
+            if (err)
+                res.send(err)
+            console.log(result)
+        })
+    })
+})
