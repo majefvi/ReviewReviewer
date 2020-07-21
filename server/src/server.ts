@@ -1,38 +1,37 @@
-/*
 import { Application, NextFunction, Request, Response } from "express";
 import express = require("express");
 import bodyparser = require("body-parser");
-// import { Router } = require("express");
 
-// import mjvRoutes = require("./routes/router.js");
-// import router = require("router");
+const dummyData = require("../dummyData/dummyData.yml");
 
-const SERVER_PORT = 5000;
+const SERVER_PORT = process.env.PORT || 5000;
 
 const app: Application = express();
 app.use(bodyparser.json());
 
-// const mjvRoutes =
-// Router.route("/").all((req: Request, res: Response) => res.send("what up man"));
-
-// const router = express.Router();
-// app.use(router);
-// router.route(mjvRoutes)
-
-app.get("/", (req: Request, res: Response, next: NextFunction) => {
-  console.log("route reached");
-  res.sendStatus(200);
+app.get("/", async (req: Request, res: Response, next: NextFunction) => {
+  console.log("Random review being retrieved");
+  let randoRev = await retrieveReview(req, res);
+  if (randoRev) {
+    res.send(randoRev);
+  } else {
+    next("Random review cannot be generated...  Please refresh the page.");
+  }
 });
 
-const retrieveReview = (req: Request, res: Response) => {};
+const retrieveReview = (req: Request, res: Response): Object => {
+  let retrievedRando = dummyData?.Reviews?.Category;
+  console.log("RETRIEVEDRANDO: ", retrievedRando);
+  return {};
+};
 
-// app.get("/review", retrieveReview());
+var ymlTest = JSON.stringify(dummyData?.Reviews?.Category?.nuts[0].name);
 
-export default app;
+console.log("YML ACCESS TEST: ", ymlTest);
 
 app.listen(SERVER_PORT, () => console.log("Look out! The server be runnin"));
-*/
 
+/*
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 5000;
@@ -50,3 +49,22 @@ app.get("/harrypotter", (req, res) => {
   console.log("he be a wizard");
   res.send({ test: "is this how this works?" });
 });
+
+  // GET '/getRandomOriginalReview'
+    // expect to get back an object with the following shape:
+      // productName:
+      // productImage:
+      // productManufacturer:
+      // productReview: 
+      // productRating: 
+      // productID: 
+
+  // POST '/saveMetaReview'
+    // database will expect the user to have provided a review of the shape:
+      // originalReviewProductID:
+      // metaReviewAuthor:
+      // metaReviewText: 
+      // metaReviewRating: 
+
+      // test
+*/

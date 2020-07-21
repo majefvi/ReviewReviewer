@@ -1,29 +1,32 @@
-# data in this file is only for use for validation/practice
 Reviews:
   Category:
-    "nuts":
+    nuts:
       [
         {
           name: "Jumbo Cashews",
           manufacturer: "Karma",
+          image: "",
           review: "Tastey, but for some reason they're higher in fat than most candy of the same dimensions...",
         },
         {
           name: "BBQ Almonds",
           manufacturer: "Blue Diamond",
+          image: "",
           review: "These almonds suck. As in, the only good part about them is sucking off the bbq dust exterior",
         },
       ]
-    "soda":
+    soda:
       [
         {
           name: "Mountain Dew",
           manufacturer: "Coca-Cola",
+          image: "",
           review: "Tastey, but pouring it into a glass reveals an unsettling color",
         },
         {
           name: "Coke",
           manufacturer: "Coca-Cola",
+          image: "",
           review: "Hate your teeth? Need to clean a car battery? Try this!",
         },
       ]
