@@ -18,9 +18,13 @@ app.use(bodyparser.json());
 // app.use(router);
 // router.route(mjvRoutes)
 
-// app.get("/", (req: Request, res: Response, next: NextFunction) => {
-//   res.send("Howdy wurld.");
-// });
+app.get("/", (req: Request, res: Response, next: NextFunction) => {
+  res.send("Howdy wurld.");
+});
+
+const retrieveReview = (req: Request, res: Response) => {};
+
+app.get("/review", retrieveReview());
 
 export default app;
 
