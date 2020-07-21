@@ -25,9 +25,23 @@ const retrieveReview = (req: Request, res: Response): Object => {
   return {};
 };
 
-var ymlTest = JSON.stringify(dummyData?.Reviews?.Category?.nuts[0].name);
+const yaml = require("js-yaml");
+const fs = require("fs");
 
-console.log("YML ACCESS TEST: ", ymlTest);
+// Get document, or throw exception on error
+try {
+  const doc = yaml.safeLoad(
+    fs.readFileSync(
+      "/Users/matthewbeckerleg/Programming/Apprenticeship/nellyjs/groupProject/ReviewReviewer/server/dummyData/dummyData.yml",
+      "utf8"
+    )
+  );
+  console.log(doc);
+} catch (e) {
+  console.log(e);
+}
+
+// console.log("YML ACCESS TEST: ", JSON.stringify(dummyData));
 
 app.listen(SERVER_PORT, () => console.log("Look out! The server be runnin"));
 
