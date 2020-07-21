@@ -17,10 +17,13 @@ class App extends Component {
 
   componentDidMount() {
     // this.handleLoadOriginalReview();
-    // this.callBackendAPI("harry", "potter")
+    // this.callBackendAPI("getrandom")
+    //   .then((res) => console.log("hi"))
     //   .then((res) => this.setState({ data: res.express }))
     //   .catch((err) => console.log(err));
-    this.getLocalDummyData();
+    //this.getLocalDummyData();
+    fetch("/getrandom");
+    console.log("hi");
   }
 
   // TODO: Logic for getting original review
@@ -34,24 +37,26 @@ class App extends Component {
     this.setState((prevState) => {
       let review = { ...prevState.review };
 
-      fetch("/")
-        .then((response) => response.json())
-        .then((data) => {
-          review = data; // Is this correct?
-          console.log(data);
-        });
+      fetch("/getRandomOriginalReview").then(
+        (response) => console.log(response)
+        // .then((data) => {
+        //   review = data; // Is this correct?
+        //   console.log(data);
+        // });
+      );
 
       return { review };
     });
   };
 
-  callBackendAPI = async (h, p) => {
-    const response = await fetch(`/${h}${p}`);
+  callBackendAPI = async (url) => {
+    const response = await fetch(`/${url}`);
     const body = await response.json();
 
     if (response.status !== 200) {
       throw Error(body.message);
     }
+    console.log(body);
     return body;
   };
 

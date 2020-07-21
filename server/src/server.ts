@@ -7,15 +7,15 @@ const SERVER_PORT = process.env.PORT || 5000;
 const app: Application = express();
 app.use(bodyparser.json());
 
-app.get("/", () =>
-  console.log(
-    `Welcome to reviewReviewer!
-    Try navigating to /getRandomOriginalReview to view a review and leave a metaReview`
-  )
-);
+// app.get("/", () =>
+//   console.log(
+//     `Welcome to reviewReviewer!
+//     Try navigating to /getRandomOriginalReview to view a review and leave a metaReview`
+//   )
+// );
 
 app.get(
-  "/getRandomOriginalReview",
+  "/getrandom",
   async (req: Request, res: Response, next: NextFunction) => {
     console.log("Random review being retrieved");
     let randoRev = await retrieveReview(req);
@@ -38,7 +38,7 @@ let dummyDataDoc;
 try {
   dummyDataDoc = yaml.safeLoad(
     fs.readFileSync(
-      "/Users/matthewbeckerleg/Programming/Apprenticeship/nellyjs/groupProject/ReviewReviewer/server/dummyData/dummyData.yml",
+      "/Users/jeffreyjhaywood/Programming Environment/Web/ReviewReviewer/server/dummyData/dummyData.yml",
       "utf8"
     )
   );
@@ -47,10 +47,10 @@ try {
   console.log(e);
 }
 
-// console.log(
-//   "some dummyData from the doc: ",
-//   dummyDataDoc?.Reviews?.Category?.soda[1] // should yeild 'Coke' object
-// );
+console.log(
+  "some dummyData from the doc: ",
+  dummyDataDoc?.reviews?.category?.soda[1] // should yeild 'Coke' object
+);
 
 // ---below is the general shape of data expected by the front end---
 
@@ -78,9 +78,9 @@ const retrieveReview = (req) => {
   let retrievedRando;
 
   if (categoryChoice) {
-    retrievedRando = dummyDataDoc?.Reviews?.Category?.soda[arrayIndex];
+    retrievedRando = dummyDataDoc?.reviews?.category?.soda[arrayIndex];
   } else {
-    retrievedRando = dummyDataDoc?.Reviews?.Category?.nuts[arrayIndex];
+    retrievedRando = dummyDataDoc?.reviews?.category?.nuts[arrayIndex];
   }
 
   console.log("retrievedRando from retrieveReview(): ", retrievedRando);
