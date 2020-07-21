@@ -1,43 +1,20 @@
-const mongoose = require("mongoose");
-const DB_URI = "mongodb://localhost/amazonreviews";
+/*
 
-mongoose.connect(DB_URI, {
-  // refering back to URI to reconnect
+// below is a simple connection to Mongo via Mongoose example
+
+const mongoose = require("mongoose");
+const mURI = "mongodb://localhost:27017/khawsar";
+
+const db = mongoose.connect(mURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
-const db = mongoose.connection;
+db.then((db) => console.log(`Connected to: '${mURI}'`))
+  .catch((err) =>
+    console.log(`Error connecting to '${mURI}': ${err}`)
+);
 
-const reviewSchema = new mongoose.Schema({
-  customer_id: Number,
-  product_category: String,
-  date: { type: Date, default: Date.now },
-  comments: [{ body: String, date: Date }],
-  star_rating: Number,
-});
+module.exports = db;
 
-const originalReview = mongoose.model("originalReview", reviewSchema);
-
-// const customerReview = new originalReview({
-//   category: watch,
-// })
-
-// customerReview.save((err, initialReview) => {
-//   if (err) return console.log("error: ", err);
-//   // console.log(initialReview);
-// })
-
-const reviewLookup = originalReview.find((err, originalReview) => {
-  if (err) return console.error(err);
-  console.log("doc modeled successfully: ", originalReview);
-});
-
-// db-server comms
-db.find().aggregate([{ $sample: { size: 1 } }])((error, result) => {
-  if (error) {
-    console.log("error: ", error);
-    return response.status(500).send(error);
-  }
-  response.send(result);
-});
+*/
