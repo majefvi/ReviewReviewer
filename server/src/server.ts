@@ -1,52 +1,93 @@
-/*
 import { Application, NextFunction, Request, Response } from "express";
 import express = require("express");
 import bodyparser = require("body-parser");
-// import { Router } = require("express");
 
-// import mjvRoutes = require("./routes/router.js");
-// import router = require("router");
-
-const SERVER_PORT = 5000;
+const SERVER_PORT = process.env.PORT || 5000;
 
 const app: Application = express();
 app.use(bodyparser.json());
 
-// const mjvRoutes =
-// Router.route("/").all((req: Request, res: Response) => res.send("what up man"));
+app.get("/", () =>
+  console.log(
+    `Welcome to reviewReviewer!
+    Try navigating to /getRandomOriginalReview to view a review and leave a metaReview`
+  )
+);
 
-// const router = express.Router();
-// app.use(router);
-// router.route(mjvRoutes)
+app.get(
+  "/getRandomOriginalReview",
+  async (req: Request, res: Response, next: NextFunction) => {
+    console.log("Random review being retrieved");
+    let randoRev = await retrieveReview(req);
+    if (randoRev) {
+      res.send(randoRev);
+    } else {
+      next("Random review cannot be generated...  Please refresh the page.");
+    }
+  }
+);
 
-app.get("/", (req: Request, res: Response, next: NextFunction) => {
-  console.log("route reached");
-  res.sendStatus(200);
-});
+// below is preserved to demonstrate practice with 'fs' and 'yaml'
+// this step was needed to verify routes and React component appearance
 
-const retrieveReview = (req: Request, res: Response) => {};
+const yaml = require("js-yaml");
+const fs = require("fs");
+let dummyDataDoc;
 
-// app.get("/review", retrieveReview());
+// Get document, or throw exception on error
+try {
+  dummyDataDoc = yaml.safeLoad(
+    fs.readFileSync(
+      "/Users/matthewbeckerleg/Programming/Apprenticeship/nellyjs/groupProject/ReviewReviewer/server/dummyData/dummyData.yml",
+      "utf8"
+    )
+  );
+  console.log("dummyDataDoc access success");
+} catch (e) {
+  console.log(e);
+}
 
-export default app;
+// console.log(
+//   "some dummyData from the doc: ",
+//   dummyDataDoc?.Reviews?.Category?.soda[1] // should yeild 'Coke' object
+// );
+
+// ---below is the general shape of data expected by the front end---
+
+// GET '/getRandomOriginalReview'
+// expect to get back an object with the following shape:
+// productName:
+// productImage:
+// productManufacturer:
+// productReview:
+// productRating:
+// productID:
+
+// POST '/saveMetaReview'
+// database will expect the user to have provided a review of the shape:
+// originalReviewProductID:
+// metaReviewAuthor:
+// metaReviewText:
+// metaReviewRating:
+
+const coinflip = (): boolean => (Math.random() < 0.5 ? true : false);
+
+const retrieveReview = (req) => {
+  let categoryChoice = coinflip();
+  let arrayIndex = coinflip() ? 0 : 1;
+  let retrievedRando;
+
+  if (categoryChoice) {
+    retrievedRando = dummyDataDoc?.Reviews?.Category?.soda[arrayIndex];
+  } else {
+    retrievedRando = dummyDataDoc?.Reviews?.Category?.nuts[arrayIndex];
+  }
+
+  console.log("retrievedRando from retrieveReview(): ", retrievedRando);
+  return retrievedRando;
+};
+
+// here to test output of retrieveReview() - TODO: remove line 82/83
+// retrieveReview();
 
 app.listen(SERVER_PORT, () => console.log("Look out! The server be runnin"));
-*/
-
-const express = require("express");
-const app = express();
-const port = process.env.PORT || 5000;
-
-// console.log that your server is up and running
-app.listen(port, () => console.log(`Listening on port ${port}`));
-
-// create a GET route
-app.get("/express_backend", (req, res) => {
-  console.log("hi");
-  res.send({ express: "YOUR EXPRESS BACKEND IS CONNECTED TO REACT" });
-});
-
-app.get("/harrypotter", (req, res) => {
-  console.log("he be a wizard");
-  res.send({ test: "is this how this works?" });
-});
