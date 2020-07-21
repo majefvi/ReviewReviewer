@@ -23,7 +23,7 @@ class App extends Component {
     // .catch((err) => console.log(err));
     //this.getLocalDummyData();
     // fetch("/getrandom").then((response) => console.log(response.json()));
-    // console.log("hi");
+    // console.log("hii");
   }
 
   // TODO: Logic for getting original review
