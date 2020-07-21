@@ -1,21 +1,10 @@
 import React, { Component } from "react";
-import { Box, Grid, makeStyles } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
+import NavBar from "./components/navbar";
 import OriginalReview from "./components/originalReview";
 import MetaReview from "./components/metaReview";
 import "./App.css";
 import { dummyOriginalReview } from "./test/dummyData.js";
-
-// Figure out how to get this working
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  },
-}));
 
 class App extends Component {
   state = {
@@ -28,11 +17,19 @@ class App extends Component {
 
   componentDidMount() {
     // this.handleLoadOriginalReview();
-    this.callBackendAPI("harry", "potter")
-      .then((res) => this.setState({ data: res.express }))
-      .catch((err) => console.log(err));
+    // this.callBackendAPI("harry", "potter")
+    //   .then((res) => this.setState({ data: res.express }))
+    //   .catch((err) => console.log(err));
+    this.getLocalDummyData();
   }
 
+  // TODO: Logic for getting original review
+  // getOriginalReview = async () => {
+  //   const response = await fetch();
+  //   const body = await response.json();
+  // };
+
+  // Testing methods
   handleLoadOriginalReview = () => {
     this.setState((prevState) => {
       let review = { ...prevState.review };
@@ -44,7 +41,6 @@ class App extends Component {
           console.log(data);
         });
 
-      // review = dummyOriginalReview;
       return { review };
     });
   };
@@ -59,27 +55,41 @@ class App extends Component {
     return body;
   };
 
-  // getOriginalReview = async () => {
-  //   const variablehi = await //--> function that goes here to finish
-  // }
+  getLocalDummyData = () => {
+    this.setState((prevState) => {
+      let review = { ...prevState.review };
+      review = dummyOriginalReview;
+      return { review };
+    });
+  };
 
   render() {
     return (
-      <Grid
-        container
-        spacing={5}
-        direction="column"
-        alignItems="center"
-        justify="center"
-        style={{ minHeight: "100vh" }}
-      >
-        <Grid item>
-          <OriginalReview review={this.state.review} />
-        </Grid>
-        <Grid item>
-          <MetaReview />
-        </Grid>
-      </Grid>
+      <React.Fragment>
+        <NavBar />
+        <div>
+          <Grid
+            container
+            spacing={5}
+            direction="column"
+            alignItems="center"
+            justify="center"
+            style={{
+              backgroundColor: "#23272a",
+              minHeight: "100vh",
+              margin: 0,
+              width: "100%",
+            }}
+          >
+            <Grid item>
+              <OriginalReview review={this.state.review} />
+            </Grid>
+            <Grid item>
+              <MetaReview />
+            </Grid>
+          </Grid>
+        </div>
+      </React.Fragment>
     );
   }
 }
