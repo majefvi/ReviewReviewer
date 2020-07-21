@@ -21,6 +21,7 @@
     "serverdev": "nodemon server/src/server.ts",
     "serverbuild": "tsc -p server"
   },
+  "proxy": "http://localhost:5000/",
   "eslintConfig": {
     "extends": "react-app"
   },

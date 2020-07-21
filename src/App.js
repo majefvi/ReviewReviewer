@@ -27,14 +27,17 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.handleLoadOriginalReview();
+    // this.handleLoadOriginalReview();
+    this.callBackendAPI("harry", "potter")
+      .then((res) => this.setState({ data: res.express }))
+      .catch((err) => console.log(err));
   }
 
   handleLoadOriginalReview = () => {
     this.setState((prevState) => {
       let review = { ...prevState.review };
 
-      fetch("/review")
+      fetch("/")
         .then((response) => response.json())
         .then((data) => {
           review = data; // Is this correct?
@@ -45,6 +48,20 @@ class App extends Component {
       return { review };
     });
   };
+
+  callBackendAPI = async (h, p) => {
+    const response = await fetch(`/${h}${p}`);
+    const body = await response.json();
+
+    if (response.status !== 200) {
+      throw Error(body.message);
+    }
+    return body;
+  };
+
+  // getOriginalReview = async () => {
+  //   const variablehi = await //--> function that goes here to finish
+  // }
 
   render() {
     return (
