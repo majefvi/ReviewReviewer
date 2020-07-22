@@ -16,39 +16,28 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // this.handleLoadOriginalReview();
-    this.callBackendAPI("getrandom");
+    this.getRandomOriginalReview("getrandom");
     // .then((response) => response.json())
     // .then((res) => this.setState({ data: res.express }))
     // .catch((err) => console.log(err));
-    //this.getLocalDummyData();
-    // fetch("/getrandom").then((response) => console.log(response.json()));
-    // console.log("hi");
   }
 
-  // TODO: Logic for getting original review
-  // getOriginalReview = async () => {
-  //   const response = await fetch();
-  //   const body = await response.json();
-  // };
+  getRandomOriginalReview = async (url) => {
+    const response = await fetch(`/${url}`);
+    const body = await response.json();
 
-  // Testing methods
-  handleLoadOriginalReview = () => {
+    if (response.status !== 200) {
+      throw Error(body.message);
+    }
+
     this.setState((prevState) => {
       let review = { ...prevState.review };
-
-      fetch("/getRandomOriginalReview").then(
-        (response) => console.log(response)
-        // .then((data) => {
-        //   review = data; // Is this correct?
-        //   console.log(data);
-        // });
-      );
-
+      review = body;
       return { review };
     });
   };
 
+  // Testing methods
   callBackendAPI = async (url) => {
     const response = await fetch(`/${url}`);
     const body = await response.json();
@@ -68,6 +57,7 @@ class App extends Component {
     // return body;
   };
 
+  // Used to get dummy data without contacting express server
   getLocalDummyData = () => {
     this.setState((prevState) => {
       let review = { ...prevState.review };
