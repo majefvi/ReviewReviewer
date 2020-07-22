@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const DB_URI = "mongodb://localhost/amazonreviews";
+require("dotenv").config();
+const DB_URI = process.env.CUSTOM_DB_URI;
 const controller = require("./controllers/originalReviewControllers");
 const metaController = require("./controllers/metaReviewControllers");
 
