@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const DB_URI = "mongodb://localhost/amazonreviews";
 const controller = require("./controllers/originalReviewControllers");
+const metaController = require("./controllers/metaReviewControllers");
 
 const db = mongoose.connect(DB_URI, {
   useNewUrlParser: true,
@@ -10,8 +11,16 @@ const db = mongoose.connect(DB_URI, {
 db.then((db) => console.log(`Connected to: '${DB_URI}'`)).catch((err) =>
   console.log(`Error connecting to '${DB_URI}': ${err}'`)
 );
+console.log(
+  metaController.createMetaReviewEntry({
+    product_id: "743294",
+    product_category: "Musc",
+    review: "life is good",
+    star_rating: 3,
+  })
+);
 
-console.log(controller.randomReview());
+// console.log(controller.randomReview());
 
 /*
   // BELOW IS EXAMPLE OF SINGLE PAGE DB INTERACTION
