@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/lab": "^4.0.0-alpha.56",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -17,8 +19,12 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "serverstart": "node server/dist/server.js",
+    "serverdev": "nodemon server/src/server.ts",
+    "serverbuild": "tsc -p server",
     "db": "nodemon db/index.js"
   },
+  "proxy": "http://localhost:5000",
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -51,5 +57,14 @@
   "bugs": {
     "url": "https://github.com/majefvi/ReviewReviewer/issues"
   },
-  "homepage": "https://github.com/majefvi/ReviewReviewer#readme"
+  "homepage": "https://github.com/majefvi/ReviewReviewer#readme",
+  "devDependencies": {
+    "@types/express": "^4.17.7",
+    "@types/node": "^14.0.23",
+    "fs": "0.0.1-security",
+    "js-yaml": "^3.14.0",
+    "nodemon": "^2.0.4",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7"
+  }
 }
