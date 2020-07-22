@@ -1,3 +1,16 @@
+const OriginalReview = require("../models/originalReviewModel.js");
+
+const db = require("../index.js");
+
+// const randomReview = () => {
+//   let rando = db.amazonreviews.aggregate([{ $sample: { size: 1 } }]);
+//   console.log("random entry : ", rando);
+// };
+
+OriginalReview.findOneRandom((err, result) => {
+  if (!err) console.log("success: ", result);
+});
+
 /*
 
 // below is a sample set of controllers for the model
