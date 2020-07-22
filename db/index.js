@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const DB_URI = "mongodb://localhost/amazonreviews";
+const randomMongoose = require("mongoose-simple-random");
+const controller = require("./controllers/originalReviewControllers");
 
 const db = mongoose.connect(DB_URI, {
   useNewUrlParser: true,
@@ -10,25 +12,28 @@ db.then((db) => console.log(`Connected to: '${DB_URI}'`)).catch((err) =>
   console.log(`Error connecting to '${DB_URI}': ${err}'`)
 );
 
-module.exports = { db };
+console.log("controller --------->", controller);
 
-/*
+db.controller.randomReview();
 
-// below is a simple connection to Mongo via Mongoose example
+// const reviewSchema = new mongoose.Schema({
+//   product_id: String,
+//   product_category: String,
+//   review: String,
+//   star_rating: Number,
+// });
 
-const mongoose = require("mongoose");
-const mURI = "mongodb://localhost:27017/khawsar";
+// reviewSchema.plugin(randomMongoose);
 
-const db = mongoose.connect(mURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// const OriginalReview = mongoose.model(
+//   "OriginalReview",
+//   reviewSchema,
+//   "amzlReviews"
+// );
 
-db.then((db) => console.log(`Connected to: '${mURI}'`))
-  .catch((err) =>
-    console.log(`Error connecting to '${mURI}': ${err}`)
-);
+// OriginalReview.find({})
+//   .limit(1)
+//   .then((data) => console.log("here is our find data: ", data))
+//   .catch((err) => console.log("something is wrong: ", err));
 
-module.exports = db;
-
-*/
+// module.exports = db;
