@@ -10,6 +10,13 @@ class MetaReviewForm extends Component {
     this.state = { author: "", starRating: 0, starReview: "" };
   }
 
+  // handleChange = (e) => {
+  //   const { target: { name, value } } = e
+  //   this.setState({
+  //     [name]: value,
+  //   })
+  // };
+
   handleNameChange = (event) => {
     const userInput = event.target.value;
     this.setState({
@@ -28,7 +35,7 @@ class MetaReviewForm extends Component {
   handleReviewChange = (event) => {
     const userInput = event.target.value;
     this.setState({
-      review: userInput,
+      starReview: userInput,
     });
   };
 
@@ -39,28 +46,35 @@ class MetaReviewForm extends Component {
     // alert(this.state.review);
 
     let formState = this.state;
-    console.log("Form state: ", this.state);
+    console.log("Form state from handleSubmitReview(): ", this.state);
 
     this.postReview(formState);
 
     // this.props.onSubmitReview(this.state.buffer);
-    this.setState({
-      author: "",
-      starRating: 0,
-      review: "",
-    });
+    this.setState(
+      {
+        author: "",
+        starRating: 0,
+        starReview: "",
+      },
+      () => console.log("state after form reset: ", this.state)
+    );
   };
 
   postReview = async (formState) => {
-    console.log("Post initiated");
-    await fetch("/savemetareview", formState).then((err, res) => {
-      if (err) return alert("Data wasn't saved");
-      return alert("Successfully submitted");
-    });
+    console.log("Post initiated by postReview()");
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ formState }),
+    };
+    const response = await fetch("/savemetareview", requestOptions);
+    const data = await response.json();
+    console.log("using example: ", data);
   };
 
   render() {
-    const { buffer } = this.state;
+    const { author, starRating, starReview } = this.state;
 
     return (
       <form>
@@ -71,9 +85,13 @@ class MetaReviewForm extends Component {
             variant="outlined"
             required
             onChange={this.handleNameChange}
+            value={author}
           ></TextField>
 
-          <Rating onChange={this.handleRatingChange}></Rating>
+          <Rating
+            onChange={this.handleRatingChange}
+            value={starRating}
+          ></Rating>
 
           <TextField
             id="meta-review-description"
@@ -82,6 +100,7 @@ class MetaReviewForm extends Component {
             rows={4}
             variant="outlined"
             onChange={this.handleReviewChange}
+            value={starReview}
           ></TextField>
 
           <Button
