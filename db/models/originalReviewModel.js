@@ -17,10 +17,6 @@ const OriginalReview = mongoose.model(
   "amzlReviews"
 );
 
-// OriginalReview.find({})
-//   .then((data) => console.log(data))
-//   .catch((err) => console.log("something is wrong: ", err));
-
 module.exports = {
   OriginalReview,
 };

@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const DB_URI = "mongodb://localhost/amazonreviews";
-const randomMongoose = require("mongoose-simple-random");
 const controller = require("./controllers/originalReviewControllers");
 
 const db = mongoose.connect(DB_URI, {
@@ -12,9 +11,11 @@ db.then((db) => console.log(`Connected to: '${DB_URI}'`)).catch((err) =>
   console.log(`Error connecting to '${DB_URI}': ${err}'`)
 );
 
-console.log("controller --------->", controller);
+console.log(controller.randomReview());
 
-db.controller.randomReview();
+/*
+  // BELOW IS EXAMPLE OF SINGLE PAGE DB INTERACTION
+  // SPLIT UP INTO DIRECTORIES BASED ON SEPARATION OF CONCERNS
 
 // const reviewSchema = new mongoose.Schema({
 //   product_id: String,
@@ -37,3 +38,5 @@ db.controller.randomReview();
 //   .catch((err) => console.log("something is wrong: ", err));
 
 // module.exports = db;
+
+*/
