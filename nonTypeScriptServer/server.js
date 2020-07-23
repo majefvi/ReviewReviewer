@@ -25,14 +25,11 @@ const OriginalReview = require("../db/models/originalReviewModel.js");
 const PORT = 5000;
 
 const app = express();
-app.use(bodyParser);
+app.use(bodyParser.json());
 
-app.get("/getrandom", async (req, res) => {
-  console.log("start");
-  db;
+app.get("/getrandom", (req, res) => {
   OriginalReview.find({})
     .limit(1)
-    .then(() => console.log("w;alkjdfal;sdfkjasdf"))
     .then((err, data) =>
       err ? console.log("error: ", err) : console.log("data: ", data)
     );

@@ -1,11 +1,9 @@
 import { Application, NextFunction, Request, Response } from "express";
 import express = require("express");
 import bodyparser = require("body-parser");
-import { holder } from "../../db";
-import {
-  createMetaReviewEntry,
-  randomReview,
-} from "../../db/controllers/index.mjs";
+
+const db = require("../../db/db.js");
+const OriginalReview = require("../../db/models/originalReviewModel.js");
 
 // const dbFile = require("../../db/index.js");
 
@@ -54,11 +52,10 @@ app.get("/", async (req: Request, res: Response, next: NextFunction) => {
 //   }
 // );
 
-app.get("/getrandom", (req: Request, res: Response, next: NextFunction) => {
-  console.log("get random is desired...");
-  let dbConn = holder.estConn;
-  let rando = dbConn.then(randomReview);
-  console.log("randoRev: ", rando);
+app.get("/getrandom", (req, res) => {
+  OriginalReview.find({})
+    .limit(1)
+    .then((err, data) => (err ? console.log("error: ", err) : res.send(data)));
 });
 
 app.post(
