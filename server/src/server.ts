@@ -2,15 +2,22 @@ import { Application, NextFunction, Request, Response } from "express";
 // import { Error } from "@types/mongoose";
 import express = require("express");
 import bodyparser = require("body-parser");
+import path = require("path");
 
 const db = require("../../db/db.js");
 const OriginalReview = require("../../db/models/originalReviewModel.js");
 const MetaReview = require("../../db/models/metaReviewModel.js");
 
-const SERVER_PORT = 5000;
+const SERVER_PORT = process.env.PORT || 5000;
 
 const app: Application = express();
 app.use(bodyparser.json());
+
+app.use(express.static(path.join(__dirname, "build")));
+
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../", "build", "index.html"));
+});
 
 app.get("/", async (req: Request, res: Response, next: NextFunction) => {
   console.log("Homepage visited");
