@@ -11,12 +11,8 @@ const reviewSchema = new mongoose.Schema({
 
 reviewSchema.plugin(randomMongoose);
 
-const OriginalReview = mongoose.model(
-  "OriginalReview",
-  reviewSchema,
-  "amzlReviews"
-);
+module.exports = mongoose.model("OriginalReview", reviewSchema, "amzlReviews");
 
-module.exports = {
-  OriginalReview,
-};
+// module.exports = {
+//   OriginalReview,
+// };

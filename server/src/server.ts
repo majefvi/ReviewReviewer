@@ -1,6 +1,13 @@
 import { Application, NextFunction, Request, Response } from "express";
 import express = require("express");
 import bodyparser = require("body-parser");
+import { holder } from "../../db";
+import {
+  createMetaReviewEntry,
+  randomReview,
+} from "../../db/controllers/index.mjs";
+
+// const dbFile = require("../../db/index.js");
 
 var count = 0;
 
@@ -15,25 +22,44 @@ const METAREV_YML_PATH =
 const app: Application = express();
 app.use(bodyparser.json());
 
-// app.get("/", () =>
-//   console.log(
-//     `Welcome to reviewReviewer!
-//     Try navigating to /getRandomOriginalReview to view a review and leave a metaReview`
-//   )
+app.get("/", async (req: Request, res: Response, next: NextFunction) => {
+  console.log("Homepage visited");
+  const homePageStr = `Welcome to reviewReviewer! </br>
+      Try navigating to /getRandomOriginalReview to view a review and leave a metaReview`;
+  const homePageTemplate = `
+      <html><div style="
+        background-color: #282c34;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: calc(10px + 2vmin);
+        color: white;">
+          ${homePageStr}
+      </div></html>`;
+  res.send(homePageTemplate);
+});
+
+// app.get(
+//   "/getrandom",
+//   async (req: Request, res: Response, next: NextFunction) => {
+//     console.log("Random review being retrieved");
+//     let randoRev = await retrieveReview(req);
+//     if (randoRev) {
+//       res.send(randoRev);
+//     } else {
+//       next("Random review cannot be generated...  Please refresh the page.");
+//     }
+//   }
 // );
 
-app.get(
-  "/getrandom",
-  async (req: Request, res: Response, next: NextFunction) => {
-    console.log("Random review being retrieved");
-    let randoRev = await retrieveReview(req);
-    if (randoRev) {
-      res.send(randoRev);
-    } else {
-      next("Random review cannot be generated...  Please refresh the page.");
-    }
-  }
-);
+app.get("/getrandom", (req: Request, res: Response, next: NextFunction) => {
+  console.log("get random is desired...");
+  let dbConn = holder.estConn;
+  let rando = dbConn.then(randomReview);
+  console.log("randoRev: ", rando);
+});
 
 app.post(
   "/savemetareview",
