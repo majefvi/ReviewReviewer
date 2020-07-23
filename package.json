@@ -20,8 +20,7 @@
     "eject": "react-scripts eject",
     "serverstart": "node server/dist/server.js",
     "serverdev": "nodemon server/src/server.ts",
-    "serverbuild": "tsc -p server",
-    "db": "nodemon db/index.js"
+    "serverbuild": "tsc -p server"
   },
   "proxy": "http://localhost:5000",
   "eslintConfig": {
