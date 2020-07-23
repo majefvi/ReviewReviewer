@@ -1,37 +1,22 @@
-import React, { Component } from "react";
+import React from "react";
 import { Card, CardContent, CardHeader, CardMedia } from "@material-ui/core";
 
-class OriginalReview extends Component {
-  state = {};
-
-  constructor() {
-    super();
-    this.state = {
-      productName: "",
-      productId: 0,
-      manufacturer: "",
-      reviewText: "",
-    };
-  }
-
-  render() {
-    const { review } = this.props;
-
-    return (
-      <Card style={{ position: "relative" }}>
-        <CardHeader
-          title={review.name}
-          subheader={review.manufacturer}
-        ></CardHeader>
-        {/* <img src={review.image} alt="" /> */}
-        <CardMedia
-          image={review.image}
-          style={{ height: "35vh", width: "auto" }}
-        />
-        <CardContent>{review.review}</CardContent>
-      </Card>
-    );
-  }
-}
+const OriginalReview = ({ review }) => {
+  return (
+    <Card style={{ position: "relative" }}>
+      <CardHeader
+        title={review.product_title}
+        subheader={review.review_headline}
+      ></CardHeader>
+      {/* <img src={review.image} alt="" /> */}
+      <CardMedia
+        image={review.image}
+        style={{ height: "35vh", width: "auto" }}
+      />
+      <CardContent>{review.review_body}</CardContent>
+      <CardContent>{review.review_date}</CardContent>
+    </Card>
+  );
+};
 
 export default OriginalReview;

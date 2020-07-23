@@ -2,17 +2,17 @@ const mongoose = require("mongoose");
 
 const metaReviewSchema = new mongoose.Schema({
   product_id: String,
-  product_category: String,
-  review: String,
-  star_rating: Number,
+  metaReviewAuthor: String,
+  metaRating: String,
+  metaReviewText: String,
 });
 
-const MetaReview = mongoose.model(
+module.exports = mongoose.model(
   "MetaReview",
   metaReviewSchema,
   "metaAmzlReviews"
 );
 
-module.exports = {
-  MetaReview,
-};
+// module.exports = {
+//   MetaReview,
+// };

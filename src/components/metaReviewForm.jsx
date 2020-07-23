@@ -20,7 +20,7 @@ class MetaReviewForm extends Component {
           <Rating
             name="metaRating"
             onChange={(event) => this.props.onMetaInputChange(event)}
-            value={this.props.metaReview.metaReviewRating}
+            value={this.props.metaReview.metaRating}
           ></Rating>
 
           <TextField

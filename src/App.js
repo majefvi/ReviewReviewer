@@ -20,9 +20,9 @@ class App extends Component {
     this.getRandomOriginalReview("getrandom");
   }
 
-  componentDidUpdate() {
-    console.log("CompDidUpdate State: ", this.state);
-  }
+  // componentDidUpdate() {
+  //   console.log("CompDidUpdate State: ", this.state);
+  // }
 
   getRandomOriginalReview = async (url) => {
     const response = await fetch(`/${url}`);
@@ -35,8 +35,9 @@ class App extends Component {
     this.setState((prevState) => {
       let review = { ...prevState.review };
       let metaReview = { ...prevState.metaReview };
-      review = body;
-      metaReview.originalReviewProductID = review.productid;
+      review = body[0];
+      // console.log("revvvvv: ", review.review_product_id);
+      // metaReview.originalReviewProductID = review.review_product_id;
       return { review, metaReview };
     });
   };
@@ -54,13 +55,13 @@ class App extends Component {
   };
 
   handleMetaInputChange = (event) => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
 
     const {
       target: { name, value },
     } = event;
-    console.log(name);
-    console.log(value);
+    // console.log(name);
+    // console.log(value);
 
     this.setState(
       (prevState) => {
@@ -68,29 +69,40 @@ class App extends Component {
         // metaReview = { [name]: value };
         // metaReview.name = value;
         return { metaReview };
-      },
-      () => console.log("after state update: ", this.state)
+      }
+      // () => console.log("after state update: ", this.state)
     );
   };
 
   handleSubmitReview = (event) => {
     event.preventDefault();
 
-    let formState = this.state.metaReview;
+    this.setState(
+      (prevState) => {
+        let metaReview = {
+          ...prevState.metaReview,
+          product_id: this.state.review.product_id,
+        };
+        return { metaReview };
+      },
+      () => this.postMetaReview(this.state.metaReview)
+    );
 
-    this.postMetaReview(formState);
+    // let formState = this.state.metaReview;
+    // console.log("formState: ", formState);
+    // this.postMetaReview(formState);
 
     this.setState(
       (prevState) => {
         let metaReview = { ...prevState.metaReview };
 
         metaReview.metaReviewAuthor = "";
-        metaReview.metaReviewRating = 0;
+        metaReview.metaRating = 0;
         metaReview.metaReviewText = "";
 
         return { metaReview };
-      },
-      () => console.log("state after form reset: ", this.state.metaReview)
+      }
+      // () => console.log("state after form reset: ", this.state.metaReview)
     );
   };
 
