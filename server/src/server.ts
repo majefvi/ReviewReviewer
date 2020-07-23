@@ -7,7 +7,7 @@ const db = require("../../db/db.js");
 const OriginalReview = require("../../db/models/originalReviewModel.js");
 const MetaReview = require("../../db/models/metaReviewModel.js");
 
-const SERVER_PORT = 5000;
+const SERVER_PORT = process.env.PORT || 5000;
 
 const app: Application = express();
 app.use(bodyparser.json());
