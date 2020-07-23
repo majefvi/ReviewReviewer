@@ -1,5 +1,6 @@
 id: 0
 metaReview:
-  author: test
-  starRating: '5'
-  starReview: howdy yaml
+  originalReviewProductID: 3
+  metaReviewAuthor: Checkiung
+  metaRating: '3'
+  metaReviewText: aaaa

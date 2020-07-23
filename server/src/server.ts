@@ -10,12 +10,14 @@ const OriginalReview = require("../../db/models/originalReviewModel.js");
 var count = 0;
 
 const SERVER_PORT = process.env.PORT || 5000;
+// const YML_PATH =
+// "/Users/matthewbeckerleg/Programming/Apprenticeship/nellyjs/groupProject/ReviewReviewer/server/dummyData/dummyData.yml";
 const YML_PATH =
-  "/Users/matthewbeckerleg/Programming/Apprenticeship/nellyjs/groupProject/ReviewReviewer/server/dummyData/dummyData.yml";
-// const YML_PATH = "/Users/jeffreyjhaywood/Programming Environment/Web/ReviewReviewer/server/dummyData/dummyData.yml";
+  "/Users/jeffreyjhaywood/Programming Environment/Web/ReviewReviewer/server/dummyData/dummyData.yml";
+// const METAREV_YML_PATH =
+//   "/Users/matthewbeckerleg/Programming/Apprenticeship/nellyjs/groupProject/ReviewReviewer/server/dummyData/metaDummyData.yml";
 const METAREV_YML_PATH =
-  "/Users/matthewbeckerleg/Programming/Apprenticeship/nellyjs/groupProject/ReviewReviewer/server/dummyData/metaDummyData.yml";
-// const METAREV_YML_PATH = "/Users/jeffreyjhaywood/Programming Environment/Web/ReviewReviewer/server/dummyData/metaDummyData.yml";
+  "/Users/jeffreyjhaywood/Programming Environment/Web/ReviewReviewer/server/dummyData/metaDummyData.yml";
 
 const app: Application = express();
 app.use(bodyparser.json());

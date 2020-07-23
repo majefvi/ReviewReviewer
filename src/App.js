@@ -9,17 +9,19 @@ import { dummyOriginalReview } from "./test/dummyData.js";
 class App extends Component {
   state = {
     review: {},
+    metaReview: {},
   };
 
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   componentDidMount() {
     this.getRandomOriginalReview("getrandom");
-    // .then((response) => response.json())
-    // .then((res) => this.setState({ data: res.express }))
-    // .catch((err) => console.log(err));
+  }
+
+  componentDidUpdate() {
+    console.log("CompDidUpdate State: ", this.state);
   }
 
   getRandomOriginalReview = async (url) => {
@@ -32,29 +34,64 @@ class App extends Component {
 
     this.setState((prevState) => {
       let review = { ...prevState.review };
+      let metaReview = { ...prevState.metaReview };
       review = body;
-      return { review };
+      metaReview.originalReviewProductID = review.productid;
+      return { review, metaReview };
     });
   };
 
-  // Testing methods
-  callBackendAPI = async (url) => {
-    const response = await fetch(`/${url}`);
-    const body = await response.json();
+  postMetaReview = async (formState) => {
+    console.log("Post initiated by postReview()");
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ formState }),
+    };
+    const response = await fetch("/savemetareview", requestOptions);
+    const data = await response.json();
+    console.log("using example: ", data);
+  };
 
-    if (response.status !== 200) {
-      throw Error(body.message);
-    }
-    console.log(body);
+  handleMetaInputChange = (event) => {
+    console.log(event.target.value);
 
-    this.setState((prevState) => {
-      let review = { ...prevState.review };
-      review = body;
-      console.log(review.image);
-      return { review };
-    });
+    const {
+      target: { name, value },
+    } = event;
+    console.log(name);
+    console.log(value);
 
-    // return body;
+    this.setState(
+      (prevState) => {
+        let metaReview = { ...prevState.metaReview, [name]: value };
+        // metaReview = { [name]: value };
+        // metaReview.name = value;
+        return { metaReview };
+      },
+      () => console.log("after state update: ", this.state)
+    );
+  };
+
+  handleSubmitReview = (event) => {
+    event.preventDefault();
+
+    let formState = this.state.metaReview;
+
+    this.postMetaReview(formState);
+
+    this.setState(
+      (prevState) => {
+        let metaReview = { ...prevState.metaReview };
+
+        metaReview.metaReviewAuthor = "";
+        metaReview.metaReviewRating = 0;
+        metaReview.metaReviewText = "";
+
+        return { metaReview };
+      },
+      () => console.log("state after form reset: ", this.state.metaReview)
+    );
   };
 
   // Used to get dummy data without contacting express server
@@ -88,7 +125,11 @@ class App extends Component {
               <OriginalReview review={this.state.review} />
             </Grid>
             <Grid item>
-              <MetaReview />
+              <MetaReview
+                metaReview={this.state.metaReview}
+                onMetaInputChange={this.handleMetaInputChange}
+                onSubmitPressed={this.handleSubmitReview}
+              />
             </Grid>
           </Grid>
         </div>
