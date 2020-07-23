@@ -37,6 +37,7 @@
     "nontsserver": "nodemon nonTypeScriptServer/server.js",
     "third": "nodemon server/src/server.ts"
   },
+  "homepage": "https://majefvi-test.herokuapp.com//build/index.html",
   "proxy": "http://localhost:5000",
   "eslintConfig": {
     "extends": "react-app"
