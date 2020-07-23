@@ -3,12 +3,11 @@ import { Rating } from "@material-ui/lab";
 import { FormControl, TextField, Button } from "@material-ui/core";
 
 class MetaReviewForm extends Component {
-  state = {};
+  // state = {};
 
-  constructor() {
-    super();
-    this.state = { author: "", starRating: 0, starReview: "" };
-  }
+  // constructor() {
+  //   super();
+  // }
 
   // handleChange = (e) => {
   //   const { target: { name, value } } = e
@@ -17,94 +16,106 @@ class MetaReviewForm extends Component {
   //   })
   // };
 
-  handleNameChange = (event) => {
-    const userInput = event.target.value;
-    this.setState({
-      author: userInput,
-    });
-  };
+  // handleProductId = (event) => {
+  //   const prodId = event.target.value;
+  //   this.setState({
+  //     productid: prodId,
+  //   });
+  // };
 
-  handleRatingChange = (event) => {
-    const userInput = event.target.value;
-    this.setState({
-      starRating: userInput,
-    });
-  };
+  // handleNameChange = (event) => {
+  //   const userInput = event.target.value;
+  //   return userInput;
+  //   // this.setState({
+  //   //   metaReviewAuthor: userInput,
+  //   // });
+  // };
+
+  // handleRatingChange = (event) => {
+  //   const userInput = event.target.value;
+  //   this.setState({
+  //     metaReviewRating: userInput,
+  //   });
+  // };
 
   // Get data from all inputs and build object from it
-  handleReviewChange = (event) => {
-    const userInput = event.target.value;
-    this.setState({
-      starReview: userInput,
-    });
-  };
+  // handleReviewChange = (event) => {
+  //   const userInput = event.target.value;
+  //   this.setState({
+  //     metaReviewText: userInput,
+  //   });
+  // };
 
-  handleSubmitReview = (event) => {
-    event.preventDefault();
-    // alert(this.state.author);
-    // alert(this.state.starRating);
-    // alert(this.state.review);
+  // handleSubmitReview = (event) => {
+  //   event.preventDefault();
 
-    let formState = this.state;
-    console.log("Form state from handleSubmitReview(): ", this.state);
+  //   let formState = this.state;
+  //   console.log("Form state from handleSubmitReview(): ", this.state);
 
-    this.postReview(formState);
+  //   this.postReview(formState);
 
-    // this.props.onSubmitReview(this.state.buffer);
-    this.setState(
-      {
-        author: "",
-        starRating: 0,
-        starReview: "",
-      },
-      () => console.log("state after form reset: ", this.state)
-    );
-  };
+  //   // this.props.onSubmitReview(this.state.buffer);
+  //   this.setState(
+  //     {
+  //       originalReviewProductID: 0,
+  //       metaReviewAuthor: "",
+  //       metaReviewRating: 0,
+  //       metaReviewText: "",
+  //     } /*,
+  //     () => console.log("state after form reset: ", this.state)*/
+  //   );
+  // };
 
-  postReview = async (formState) => {
-    console.log("Post initiated by postReview()");
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ formState }),
-    };
-    const response = await fetch("/savemetareview", requestOptions);
-    const data = await response.json();
-    console.log("using example: ", data);
-  };
+  // postReview = async (formState) => {
+  //   console.log("Post initiated by postReview()");
+  //   const requestOptions = {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({ formState }),
+  //   };
+  //   const response = await fetch("/savemetareview", requestOptions);
+  //   const data = await response.json();
+  //   console.log("using example: ", data);
+  // };
 
   render() {
-    const { author, starRating, starReview } = this.state;
+    // const { metaReviewAuthor, metaReviewRating, metaReviewText } = this.state;
+    // const { oriReview } = this.props;
 
+    // this.state.originalReviewProductID = oriReview.productid;
+    // console.log(oriReview.productid);
     return (
-      <form>
+      <form name="metaReviewForm">
         <FormControl>
           <TextField
+            name="metaReviewAuthor"
             id="reviewer-name"
             label="Name"
             variant="outlined"
             required
-            onChange={this.handleNameChange}
-            value={author}
+            onChange={(event) => this.props.onMetaInputChange(event)}
+            value={this.props.metReview.metaReviewAuthor}
           ></TextField>
 
           <Rating
-            onChange={this.handleRatingChange}
-            value={starRating}
+            name="metaRating"
+            onChange={(event) => this.props.onMetaInputChange(event)}
+            value={this.props.metReview.metaReviewRating}
           ></Rating>
 
           <TextField
+            name="metaReviewText"
             id="meta-review-description"
             label="Review"
             multiline
             rows={4}
             variant="outlined"
-            onChange={this.handleReviewChange}
-            value={starReview}
+            onChange={(event) => this.props.onMetaInputChange(event)}
+            value={this.props.metReview.metaReviewText}
           ></TextField>
 
           <Button
-            onClick={this.handleSubmitReview}
+            onClick={(event) => this.props.onSubmitPressed(event)}
             fullWidth
             style={{ backgroundColor: "#43b581" }}
           >

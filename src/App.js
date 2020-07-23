@@ -9,17 +9,22 @@ import { dummyOriginalReview } from "./test/dummyData.js";
 class App extends Component {
   state = {
     review: {},
+    metaReview: {},
   };
 
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   componentDidMount() {
     this.getRandomOriginalReview("getrandom");
     // .then((response) => response.json())
     // .then((res) => this.setState({ data: res.express }))
     // .catch((err) => console.log(err));
+  }
+
+  componentDidUpdate() {
+    console.log("CompDidUpdate State: ", this.state);
   }
 
   getRandomOriginalReview = async (url) => {
@@ -32,8 +37,105 @@ class App extends Component {
 
     this.setState((prevState) => {
       let review = { ...prevState.review };
+      let metaReview = { ...prevState.metaReview };
       review = body;
-      return { review };
+      metaReview.originalReviewProductID = review.productid;
+      return { review, metaReview };
+    });
+  };
+
+  handleSubmitReview = (event) => {
+    console.log("NEW BOY PRESSED");
+    event.preventDefault();
+
+    let formState = this.state.metaReview;
+    console.log("Form state from handleSubmitReview(): ", formState);
+
+    this.postMetaReview(formState);
+
+    this.setState(
+      (prevState) => {
+        let metaReview = { ...prevState.metaReview };
+
+        metaReview.metaReviewAuthor = "";
+        metaReview.metaReviewRating = 0;
+        metaReview.metaReviewText = "";
+
+        return { metaReview };
+      },
+      () => console.log("state after form reset: ", this.state.metaReview)
+    );
+    // this.setState(
+    //   {
+    //     originalReviewProductID: 0,
+    //     metaReviewAuthor: "",
+    //     metaReviewRating: 0,
+    //     metaReviewText: "",
+    //   } /*,
+    //   () => console.log("state after form reset: ", this.state)*/
+    // );
+  };
+
+  postMetaReview = async (formState) => {
+    console.log("Post initiated by postReview()");
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ formState }),
+    };
+    const response = await fetch("/savemetareview", requestOptions);
+    const data = await response.json();
+    console.log("using example: ", data);
+  };
+
+  handleMetaInputChange = (event) => {
+    console.log(event.target.value);
+
+    const {
+      target: { name, value },
+    } = event;
+    console.log(name);
+    console.log(value);
+
+    this.setState(
+      (prevState) => {
+        let metaReview = { ...prevState.metaReview, [name]: value };
+        // metaReview = { [name]: value };
+        // metaReview.name = value;
+        return { metaReview };
+      },
+      () => console.log("after state update: ", this.state)
+    );
+  };
+
+  // handleMetaAuthorChange = (author) => {
+  //   console.log(author);
+
+  //   this.setState((prevState) => {
+  //     let metaReview = { ...prevState.metaReview };
+  //     metaReview.metaReviewAuthor = author;
+  //     return { metaReview };
+  //   });
+  //   console.log("handleMetaAuthroChange()", this.state.metaReviewAuthor);
+  // };
+
+  handleMetaRatingChange = (rating) => {
+    console.log(rating);
+
+    this.setState((prevState) => {
+      let metaReview = { ...prevState.metaReview };
+      metaReview.metaReviewRating = rating;
+      return { metaReview };
+    });
+  };
+
+  handleMetaReviewTextChange = (reviewText) => {
+    console.log(reviewText);
+
+    this.setState((prevState) => {
+      let metaReview = { ...prevState.metaReview };
+      metaReview.metaReviewText = reviewText;
+      return { metaReview };
     });
   };
 
@@ -88,7 +190,15 @@ class App extends Component {
               <OriginalReview review={this.state.review} />
             </Grid>
             <Grid item>
-              <MetaReview />
+              <MetaReview
+                // oriReview={this.state.review}
+                metReview={this.state.metaReview}
+                onMetaInputChange={this.handleMetaInputChange}
+                // onMetaAuthorChange={this.handleMetaInputChange}
+                // onMetaRatingChange={this.handleMetaInputChange}
+                // onMetaReviewTextChange={this.handleMetaInputChange}
+                // onSubmitPressed={this.handleSubmitReview}
+              />
             </Grid>
           </Grid>
         </div>

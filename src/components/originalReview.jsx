@@ -1,9 +1,19 @@
 import React, { Component } from "react";
-import { Card, CardMedia } from "@material-ui/core";
-import { CardHeader } from "@material-ui/core";
-import { CardContent } from "@material-ui/core";
+import { Card, CardContent, CardHeader } from "@material-ui/core";
 
 class OriginalReview extends Component {
+  state = {};
+
+  constructor() {
+    super();
+    this.state = {
+      productName: "",
+      productId: 0,
+      manufacturer: "",
+      reviewText: "",
+    };
+  }
+
   render() {
     const { review } = this.props;
 
@@ -13,7 +23,7 @@ class OriginalReview extends Component {
           title={review.name}
           subheader={review.manufacturer}
         ></CardHeader>
-        <img src={review.image} />
+        <img src={review.image} alt="" />
         {/* <CardMedia image={review.image} /> */}
         <CardContent>{review.review}</CardContent>
       </Card>

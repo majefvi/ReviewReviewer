@@ -3,12 +3,14 @@
     "category": {
       "nuts": [
         {
+          "productid": 0,
           "name": "Jumbo Cashews",
           "manufacturer": "Karma",
           "image": "",
           "review": "Tastey, but for some reason they're higher in fat than most candy of the same dimensions..."
         },
         {
+          "productid": 1,
           "name": "BBQ Almonds",
           "manufacturer": "Blue Diamond",
           "image": "",
@@ -17,12 +19,14 @@
       ],
       "soda": [
         {
+          "productid": 2,
           "name": "Mountain Dew",
           "manufacturer": "Coca-Cola",
           "image": "",
           "review": "Tastey, but pouring it into a glass reveals an unsettling color"
         },
         {
+          "productid": 3,
           "name": "Coke",
           "manufacturer": "Coca-Cola",
           "image": "",

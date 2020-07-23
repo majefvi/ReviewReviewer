@@ -1,14 +1,6 @@
 import React, { Component } from "react";
-import {
-  AppBar,
-  Icon,
-  Typography,
-  SvgIcon,
-  IconButton,
-  Toolbar,
-} from "@material-ui/core";
+import { AppBar, Typography, IconButton, Toolbar } from "@material-ui/core";
 import MyLogo from "../logo.svg";
-import App from "../App";
 
 class NavBar extends Component {
   state = {};
@@ -17,7 +9,7 @@ class NavBar extends Component {
       <AppBar position="static" style={{ backgroundColor: "#8ea1e1" }}>
         <Toolbar>
           <IconButton edge="start" href="#">
-            <img src={MyLogo} height={50} width={50} />
+            <img src={MyLogo} alt="Product" height={50} width={50} />
           </IconButton>
           <Typography variant="h4">ReviewReviewer</Typography>
         </Toolbar>
